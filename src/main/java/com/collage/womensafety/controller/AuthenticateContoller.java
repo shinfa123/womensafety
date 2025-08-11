@@ -28,7 +28,7 @@ public class AuthenticateContoller {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/hello2")
+	@GetMapping("/hello")
 	public String firstPage() {
 		return "Hello World";
 	}
