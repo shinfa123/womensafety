@@ -24,13 +24,22 @@ public class MyUser {
 	public String email;
 	public String userName;
 	public String password;
+	public boolean isAdmin;
 
-	public int getUserId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setUserId(int id) {
+	public void setId(int id) {
 		this.id = id;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 	public String getName() {
@@ -112,5 +121,4 @@ public class MyUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 }
