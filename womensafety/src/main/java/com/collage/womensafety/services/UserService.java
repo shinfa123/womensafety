@@ -29,4 +29,12 @@ public class UserService implements UserDetailsService{
     	}
     	return user;
     }
+    
+	public MyUser saveUser(MyUser user) {
+		return userDao.save(user);
+	}
+	
+	public ArrayList<MyUser> getAllUsers() {
+		return (ArrayList<MyUser>) userDao.findAll();
+	}
 }
