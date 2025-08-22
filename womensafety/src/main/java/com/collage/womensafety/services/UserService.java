@@ -24,8 +24,10 @@ public class UserService implements UserDetailsService{
     	Optional<MyUser> optionalLoginUser = userDao.findByUserName(userName);
     	if (optionalLoginUser.isPresent()) {
     		MyUser firstLoginUser = optionalLoginUser.get();
+    		if(firstLoginUser.isAdmin) {
     	    user=new User(firstLoginUser.getUserName(),firstLoginUser.getPassword(),
                     new ArrayList<>());
+    		}
     	}
     	return user;
     }
