@@ -1,6 +1,7 @@
 package com.collage.womensafety.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,12 +44,13 @@ public class AuthenticateContoller {
 		} catch (BadCredentialsException e) {
 			throw new Exception("Incorrect username or password", e);
 		}
-
+		MyUser myUser=userService.getUserById(authenticationRequest.getUsername());
+		
 		final UserDetails userDetails = userService.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		return ResponseEntity.ok(new AuthenticationResponse(jwt,myUser.isAdmin));
 	}
 
 	@PostMapping("/signup")
