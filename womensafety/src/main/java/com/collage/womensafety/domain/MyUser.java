@@ -25,6 +25,7 @@ public class MyUser {
 	public String userName;
 	public String password;
 	public boolean isAdmin;
+	public boolean isActive;
 
 	public int getId() {
 		return id;
@@ -120,5 +121,13 @@ public class MyUser {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 }

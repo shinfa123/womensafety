@@ -15,28 +15,37 @@ import com.collage.womensafety.domain.MyUser;
 
 
 @Service
-public class UserService implements UserDetailsService{
+public class UserService implements UserDetailsService {
 	@Autowired
 	private UserDao userDao;
-	User user=null;
-    @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-    	Optional<MyUser> optionalLoginUser = userDao.findByUserName(userName);
-    	if (optionalLoginUser.isPresent()) {
-    		MyUser firstLoginUser = optionalLoginUser.get();
-    		if(firstLoginUser.isAdmin) {
-    	    user=new User(firstLoginUser.getUserName(),firstLoginUser.getPassword(),
-                    new ArrayList<>());
-    		}
-    	}
-    	return user;
-    }
-    
+	User user = null;
+
+	@Override
+	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+		Optional<MyUser> optionalLoginUser = userDao.findByUserName(userName);
+		if (optionalLoginUser.isPresent()) {
+			MyUser firstLoginUser = optionalLoginUser.get();
+			if (firstLoginUser.isActive()) {
+				user = new User(firstLoginUser.getUserName(), firstLoginUser.getPassword(), new ArrayList<>());
+			}
+		}
+		return user;
+	}
+
 	public MyUser saveUser(MyUser user) {
 		return userDao.save(user);
 	}
-	
+
 	public ArrayList<MyUser> getAllUsers() {
 		return (ArrayList<MyUser>) userDao.findAll();
+	}
+
+	public MyUser getUserById(String userName) {
+		Optional<MyUser> optionalLoginUser = userDao.findByUserName(userName);
+		if (optionalLoginUser.isPresent()) {
+			MyUser loginUser = optionalLoginUser.get();
+			return loginUser;
+		}
+		return null;
 	}
 }
