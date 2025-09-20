@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -21,7 +22,9 @@ public class Complaints {
 	public String status;
 	public String location;
 	public String complaintType;
-
+	@Lob
+	private String comment;
+	
 	public int getId() {
 		return id;
 	}
@@ -69,4 +72,14 @@ public class Complaints {
 	public void setComplaintType(String complaintType) {
 		this.complaintType = complaintType;
 	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	
+	
 }

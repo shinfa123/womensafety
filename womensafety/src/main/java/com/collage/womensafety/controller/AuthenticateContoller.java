@@ -50,7 +50,7 @@ public class AuthenticateContoller {
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-		return ResponseEntity.ok(new AuthenticationResponse(jwt,myUser.isAdmin));
+		return ResponseEntity.ok(new AuthenticationResponse(jwt,myUser.isAdmin,myUser.getId()));
 	}
 
 	@PostMapping("/signup")

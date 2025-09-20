@@ -1,0 +1,39 @@
+package com.collage.womensafety.services;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.collage.womensafety.dao.ComplaintsDao;
+import com.collage.womensafety.domain.Complaints;
+import com.collage.womensafety.domain.MyUser;
+
+@Service
+public class ComplaintsService {
+	@Autowired
+	private ComplaintsDao complaintsDao;
+	
+	@Autowired
+	private UserService userService;
+	
+	public Complaints saveComplaints(Complaints complaints) {
+		MyUser myUser = userService.getUserById(complaints.getUser().getId());
+		if (myUser != null) {
+			complaints.setUser(myUser);
+		}
+		return complaintsDao.save(complaints);
+	}
+	
+	public ArrayList<Complaints> saveComplaintsList(ArrayList<Complaints> complaints) {
+		return (ArrayList<Complaints>) complaintsDao.saveAll(complaints);
+	}
+	
+	public ArrayList<Complaints> getAllComplaintsList() {
+		return (ArrayList<Complaints>) complaintsDao.findAll();
+	}
+	
+	public ArrayList<Complaints> getAllComplaintsListByUser(Integer userId) {
+		return (ArrayList<Complaints>) complaintsDao.findByUserId(userId);
+	}
+}
