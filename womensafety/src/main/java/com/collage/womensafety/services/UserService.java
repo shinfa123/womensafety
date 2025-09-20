@@ -48,4 +48,13 @@ public class UserService implements UserDetailsService {
 		}
 		return null;
 	}
+
+	public MyUser getUserById(Integer id) {
+        Optional<MyUser> optionalLoginUser = userDao.findById(id);
+        if (optionalLoginUser.isPresent()) {
+            MyUser loginUser = optionalLoginUser.get();
+            return loginUser;
+        }
+        return null;
+    }
 }
