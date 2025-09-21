@@ -23,10 +23,18 @@ public class ComplaintsService {
 		if (myUser != null) {
 			complaints.setUser(myUser);
 		}
+		if(complaints.isNewlyUpdated()) {
+			complaints.setNewlyUpdatedForAdmin(true);
+		}
 		return complaintsDao.save(complaints);
 	}
 	
 	public ArrayList<Complaints> saveComplaintsList(ArrayList<Complaints> complaints) {
+		for (Complaints complaint : complaints) {
+			if (complaint.isNewlyUpdated()) {
+				complaint.setNewlyUpdatedForAdmin(true);
+			}
+		}
 		return (ArrayList<Complaints>) complaintsDao.saveAll(complaints);
 	}
 	
@@ -42,7 +50,7 @@ public class ComplaintsService {
 		ArrayList<Complaints> complaintsList = new ArrayList<>();
 		MyUser myUser = userService.getUserById(userId);
 		if (myUser.isAdmin()) {
-			complaintsList = (ArrayList<Complaints>) complaintsDao.findByIsNewlyUpdatedTrue();
+			complaintsList = (ArrayList<Complaints>) complaintsDao.findByIsNewlyUpdatedForAdminTrue();
 		} else {
 			complaintsList = (ArrayList<Complaints>) complaintsDao.findByUserIdAndIsNewlyUpdatedTrue(userId);
 		}
@@ -50,9 +58,17 @@ public class ComplaintsService {
 	}
 	
 	public void updateNotifications(Integer userId) {
-	    List<Complaints> complaintsList = complaintsDao.findByUserId(userId);
-	    complaintsList.forEach(complaint -> complaint.setNewlyUpdated(false));
-	    complaintsDao.saveAll(complaintsList);
+		MyUser myUser = userService.getUserById(userId);
+		if (myUser.isAdmin()) {
+			List<Complaints> complaintsList = (ArrayList<Complaints>) complaintsDao.findAll();
+			complaintsList.forEach(complaint -> complaint.setNewlyUpdatedForAdmin(false));
+			complaintsDao.saveAll(complaintsList);
+		} else {
+			List<Complaints> complaintsList = complaintsDao.findByUserId(userId);
+			complaintsList.forEach(complaint -> complaint.setNewlyUpdated(false));
+			complaintsDao.saveAll(complaintsList);
+		}
+
 	}
 	
 }
