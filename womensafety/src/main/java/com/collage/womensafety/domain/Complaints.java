@@ -25,6 +25,7 @@ public class Complaints {
 	@Lob
 	private String comment;
 	public boolean isNewlyUpdated;
+	public boolean isNewlyUpdatedForAdmin;
 	
 	public int getId() {
 		return id;
@@ -88,6 +89,14 @@ public class Complaints {
 
 	public void setNewlyUpdated(boolean isNewlyUpdated) {
 		this.isNewlyUpdated = isNewlyUpdated;
+	}
+
+	public boolean isNewlyUpdatedForAdmin() {
+		return isNewlyUpdatedForAdmin;
+	}
+
+	public void setNewlyUpdatedForAdmin(boolean isNewlyUpdatedForAdmin) {
+		this.isNewlyUpdatedForAdmin = isNewlyUpdatedForAdmin;
 	}
 	
 	
