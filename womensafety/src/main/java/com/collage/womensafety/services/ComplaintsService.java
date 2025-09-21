@@ -1,6 +1,7 @@
 package com.collage.womensafety.services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,4 +37,22 @@ public class ComplaintsService {
 	public ArrayList<Complaints> getAllComplaintsListByUser(Integer userId) {
 		return (ArrayList<Complaints>) complaintsDao.findByUserId(userId);
 	}
+	
+	public ArrayList<Complaints> getNewlyEditedComplaintsList(Integer userId) {
+		ArrayList<Complaints> complaintsList = new ArrayList<>();
+		MyUser myUser = userService.getUserById(userId);
+		if (myUser.isAdmin()) {
+			complaintsList = (ArrayList<Complaints>) complaintsDao.findByIsNewlyUpdatedTrue();
+		} else {
+			complaintsList = (ArrayList<Complaints>) complaintsDao.findByUserIdAndIsNewlyUpdatedTrue(userId);
+		}
+		return complaintsList;
+	}
+	
+	public void updateNotifications(Integer userId) {
+	    List<Complaints> complaintsList = complaintsDao.findByUserId(userId);
+	    complaintsList.forEach(complaint -> complaint.setNewlyUpdated(false));
+	    complaintsDao.saveAll(complaintsList);
+	}
+	
 }
