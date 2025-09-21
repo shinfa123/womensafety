@@ -24,6 +24,7 @@ public class Complaints {
 	public String complaintType;
 	@Lob
 	private String comment;
+	public boolean isNewlyUpdated;
 	
 	public int getId() {
 		return id;
@@ -79,6 +80,14 @@ public class Complaints {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public boolean isNewlyUpdated() {
+		return isNewlyUpdated;
+	}
+
+	public void setNewlyUpdated(boolean isNewlyUpdated) {
+		this.isNewlyUpdated = isNewlyUpdated;
 	}
 	
 	

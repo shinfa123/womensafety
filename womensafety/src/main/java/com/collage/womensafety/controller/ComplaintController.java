@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,5 +40,14 @@ public class ComplaintController {
 	public List<Complaints> getComplaintsListByUser(@PathVariable Integer userId) {
 	    return complaintsService.getAllComplaintsListByUser(userId);
 	}
+	
+	@GetMapping("/getNewlyEditedComplaintsList/{userId}")
+	public List<Complaints> getNewlyEditedComplaintsList(@PathVariable Integer userId) {
+	    return complaintsService.getNewlyEditedComplaintsList(userId);
+	}
 
+	@PutMapping("/updateNotifications/{userId}")
+	public void updateNotifications(@PathVariable Integer userId) {
+	    complaintsService.updateNotifications(userId);
+	}
 }
