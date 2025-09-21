@@ -15,11 +15,11 @@ public class MyUser {
 	public String name;
 	public int age;
 	public String place;
-	public int semester;
+	public int semester=0;
 	@ManyToOne
 	@JoinColumn(name = "department_id", referencedColumnName = "id")
 	public Department department;
-	public int batch;
+	public int batch=0000;
 	public String phoneno;
 	public String email;
 	public String userName;

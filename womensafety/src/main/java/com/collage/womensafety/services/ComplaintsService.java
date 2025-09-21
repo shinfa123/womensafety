@@ -23,18 +23,10 @@ public class ComplaintsService {
 		if (myUser != null) {
 			complaints.setUser(myUser);
 		}
-		if(complaints.isNewlyUpdated()) {
-			complaints.setNewlyUpdatedForAdmin(true);
-		}
 		return complaintsDao.save(complaints);
 	}
 	
 	public ArrayList<Complaints> saveComplaintsList(ArrayList<Complaints> complaints) {
-		for (Complaints complaint : complaints) {
-			if (complaint.isNewlyUpdated()) {
-				complaint.setNewlyUpdatedForAdmin(true);
-			}
-		}
 		return (ArrayList<Complaints>) complaintsDao.saveAll(complaints);
 	}
 	
